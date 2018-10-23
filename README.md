@@ -1,32 +1,41 @@
 # Informações da Solução
 
-## Executar o MongoDB
+- Tecnologias utilizadas:
+	- Back-end: Node.js
+	- Banco de Dados: MongoDB
+	- Teste: Mocha e chai
+
+Os testes estão no arquivo src/test/planet.js
+
+## Passo a Passo para executar o projeto
+
+### Executar o MongoDB
 ```
 cd ./docker/ && docker-compose up
 ```
 se quiser rodar uma instalação propria do MongoDB,
 configurar o *host* e *port* no arquivo src/database/index.js
 
-## Instalar as dependencias do Node.js
+### Instalar as dependencias do Node.js
 ```
 npm install
 ```
 
-## Rodar os Testes
+### Rodar os Testes
 ```
 npm test
 ```
 
-## Rodar o Node.js
+### Rodar o Node.js
 ```
 npm start
 ```
 
-## Rotas
+### Rotas
 
 	* Adicionar um planeta: 
 		[POST] http://localhost:3000/starwars/planets
-		[body] { "name": "Tatooine", "climate": "temperate, tropical", "terrain": "jungle, rainforests" }
+		[body] { "name": "Coruscant", "climate": "temperate", "terrain": "cityscape, mountains" }
 	
 	* Listar planetas: 
 		[GET] http://localhost:3000/starwars/planets/
