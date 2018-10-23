@@ -33,19 +33,9 @@ router.post('/', (req, res) => {
 
   let planet = new Planet({ name, climate, terrain })
 
-  // Obtém quantidade de filmes
-  request({ method: 'GET', uri: 'https://swapi.co/api/planets/' })
-  .then( (response) => {
-
-    let planetAPI = JSON.parse(response).results.filter( (el) => { return el.name == name })
-
-    if (planetAPI.length > 0) planet.films = planetAPI[0].films.length
-
-    planet.save( (err) => {
-      if (err) return res.status(400).send({ error: 'Planet creation failed: ' + err })
-      else return res.send({ planet })
-    })
-
+  planet.save( (err) => {
+    if (err) return res.status(400).send({ error: 'Planet creation failed: ' + err })
+    else return res.send({ planet })
   })
 
 })
