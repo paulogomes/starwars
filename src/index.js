@@ -8,6 +8,6 @@ app.use(bodyParser.json())
 
 require('./app/controllers/index')(app)
 
-let server = app.listen(3000, () => { console.log('May the force be with you!') })
+let server = app.listen(3000, () => { console.log('Server running: May the force be with you!') })
 
 module.exports = server

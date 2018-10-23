@@ -33,7 +33,7 @@ router.post('/', (req, res) => {
 
   let planet = new Planet({ name, climate, terrain })
 
-  // Obtém o numero de filmes
+  // Obtém quantidade de filmes
   request({ method: 'GET', uri: 'https://swapi.co/api/planets/' })
   .then( (response) => {
 
@@ -48,15 +48,13 @@ router.post('/', (req, res) => {
 
   })
 
-
-
 })
 
 router.delete('/:id', (req, res) => {
 
   Planet.findByIdAndRemove(req.params.id, (err) => {
     if (err) return res.status(400).send({ error: 'Planet not found.' })
-    else return res.send({ result: 'Deletion Sucessfull' })
+    else return res.send({ result: 'Planet was deleted' })
   })
 
 })
