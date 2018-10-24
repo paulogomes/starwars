@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
     })
   }
   else {
-    Planet.find({}, (err, planets) => { res.send(planets) })
+    Planet.find({}, (err, planets) => { res.send({ planets: planets}) })
   }
 
 })
@@ -33,16 +33,25 @@ router.post('/', (req, res) => {
 
   let planet = new Planet({ name, climate, terrain })
 
-  planet.save( (err) => {
-    if (err) return res.status(400).send({ error: 'Planet creation failed: ' + err })
-    else return res.send({ planet })
-  })
+  // Obtém quantidade de filmes
+  request({ method: 'GET', uri: 'https://swapi.co/api/planets/' })
+  .then( (response) => {
 
+    let planetAPI = JSON.parse(response).results.filter( (el) => { return el.name == planet.name })
+
+    if (planetAPI.length > 0) planet.films = planetAPI[0].films.length
+
+    planet.save( (err) => {
+      if (err) return res.status(400).send({ error: 'Planet creation failed: ' + err })
+      else return res.send({ planet })
+    })
+
+  })
 })
 
 router.delete('/:id', (req, res) => {
 
-  Planet.findByIdAndRemove(req.params.id, (err) => {
+  Planet.findOneAndDelete(req.params.id, (err) => {
     if (err) return res.status(400).send({ error: 'Planet not found.' })
     else return res.send({ result: 'Planet was deleted' })
   })
